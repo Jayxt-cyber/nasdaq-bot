@@ -26,7 +26,7 @@ def send_discord_alert(message):
 def fetch_live_market_data():
     try:
         ticker = yf.Ticker(TARGET_ASSET)
-        df_1h = ticker.history(period="1mo", interval="1h")
+        df_1h = ticker.history(period="3mo", interval="1h")
         if df_1h.empty: return None
         
         df_4h = df_1h.resample('4H').agg({
