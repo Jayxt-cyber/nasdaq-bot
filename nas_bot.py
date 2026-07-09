@@ -114,21 +114,9 @@ def execute_strategy_scan():
     # ... (Keep your if/elif logic here) ...
 
 # --- MAIN TRIGGER ---
+# --- MAIN TRIGGER ---
+# Keep all your 'def' functions above this line.
+# This block should be at the very end of the file.
+
 if __name__ == "__main__":
     execute_strategy_scan()
-if __name__ == "__main__":
-    execute_strategy_scan()
-def send_discord_alert(message):
-    payload = {"content": message}
-    try:
-        response = requests.post(DISCORD_WEBHOOK_URL, json=payload)
-        # This will print the error in your GitHub Action logs if Discord rejects the link
-        if response.status_code != 204:
-            print(f"⚠️ DISCORD ERROR: Status {response.status_code}, Response: {response.text}")
-        else:
-            print("✅ Successfully sent message to Discord!")
-    except Exception as e:
-        print(f"❌ Network Error: {e}")
-if __name__ == "__main__":
-    execute_strategy_scan()
-    # This line triggers the alert so you can see it in Discord
