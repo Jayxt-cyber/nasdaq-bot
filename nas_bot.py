@@ -77,7 +77,14 @@ def execute_strategy_scan():
 
 if __name__ == "__main__":
     execute_strategy_scan()
-if __name__ == "__main__":
-    execute_strategy_scan()
-    # Add this line below to test the connection:
-    send_discord_alert("🤖 Bot Heartbeat: System is online and monitoring!")
+def send_discord_alert(message):
+    payload = {"content": message}
+    try:
+        response = requests.post(DISCORD_WEBHOOK_URL, json=payload)
+        # This will print the error in your GitHub Action logs if Discord rejects the link
+        if response.status_code != 204:
+            print(f"⚠️ DISCORD ERROR: Status {response.status_code}, Response: {response.text}")
+        else:
+            print("✅ Successfully sent message to Discord!")
+    except Exception as e:
+        print(f"❌ Network Error: {e}")
