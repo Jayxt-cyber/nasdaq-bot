@@ -25,3 +25,5 @@ jobs:
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         run: python nas_bot.py
+# Force a test alert
+send_discord_alert("🤖 Bot Heartbeat: System is online and monitoring!")
