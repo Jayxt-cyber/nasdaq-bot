@@ -88,3 +88,7 @@ def send_discord_alert(message):
             print("✅ Successfully sent message to Discord!")
     except Exception as e:
         print(f"❌ Network Error: {e}")
+if __name__ == "__main__":
+    execute_strategy_scan()
+    # This line triggers the alert so you can see it in Discord
+    send_discord_alert("🤖 Bot Heartbeat: System is online and monitoring!")
