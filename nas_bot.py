@@ -75,6 +75,47 @@ def execute_strategy_scan():
     elif is_crossunder and current_slope < 0 and current_rsi < 47:
         send_discord_alert(f"📉 **[STRATEGY SHORT]**\nAsset: NAS100 (4H)\nPrice crossed BELOW LSMA 70.\nRSI is weak at {current_rsi:.1f}.\n👉 *Open Match-Trader and look for Sells.*")
 
+import yfinance as yf
+import requests
+import os
+import pandas as pd
+from datetime import datetime
+
+# --- YOUR EXISTING DISCORD FUNCTION ---
+def send_discord_alert(message):
+    DISCORD_WEBHOOK_URL = os.getenv('DISCORD_WEBHOOK')
+    payload = {"content": message}
+    try:
+        response = requests.post(DISCORD_WEBHOOK_URL, json=payload)
+        if response.status_code != 204:
+            print(f"⚠️ DISCORD ERROR: Status {response.status_code}, Response: {response.text}")
+        else:
+            print("✅ Successfully sent message to Discord!")
+    except Exception as e:
+        print(f"❌ Network Error: {e}")
+
+# --- YOUR STRATEGY LOGIC ---
+def execute_strategy_scan():
+    # 1. Fetch Data
+    ticker = yf.Ticker("GC=F")
+    df = ticker.history(period="1mo", interval="4h")
+    
+    # 2. Calculate Indicators (Make sure your math is here)
+    # ... (Keep your existing calculate_lsma and calculate_rsi functions) ...
+    
+    # 3. Get latest values
+    current_close = df['Close'].iloc[-1]
+    current_rsi = df['RSI'].iloc[-1]
+    
+    # --- PRO LOGGING: THIS CAPTURES YOUR DATA ---
+    print(f"LOG_DATA | {datetime.now().strftime('%Y-%m-%d %H:%M:%S')} | Price: {current_close:.2f} | RSI: {current_rsi:.2f}")
+    
+    # 4. Strategy Check
+    # ... (Keep your if/elif logic here) ...
+
+# --- MAIN TRIGGER ---
+if __name__ == "__main__":
+    execute_strategy_scan()
 if __name__ == "__main__":
     execute_strategy_scan()
 def send_discord_alert(message):
