@@ -77,3 +77,7 @@ def execute_strategy_scan():
 
 if __name__ == "__main__":
     execute_strategy_scan()
+if __name__ == "__main__":
+    execute_strategy_scan()
+    # Add this line below to test the connection:
+    send_discord_alert("🤖 Bot Heartbeat: System is online and monitoring!")
